@@ -12,7 +12,7 @@ end
   end
 end
 
-install_path = File.join(node['cloudfoundry']['vcap_services']['install_path'], "mongodb")
+install_path = File.join(node['cloudfoundry_service']['install_path'], "mongodb")
 
 cloudfoundry_component "mongodb_node" do
   install_path  File.join(install_path, "mongodb")
@@ -20,5 +20,5 @@ cloudfoundry_component "mongodb_node" do
   pid_file      node['cloudfoundry_mongodb_service']['node']['pid_file']
   log_file      node['cloudfoundry_mongodb_service']['node']['log_file']
   action        [:create, :enable]
-  subscribes    :restart, resources(:cloudfoundry_source => "mongodb")
+  subscribes    :restart, resources(:cloudfoundry_service_install => "mongodb")
 end

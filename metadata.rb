@@ -9,6 +9,6 @@ version          "0.99.0"
   supports os
 end
 
-%w( mongodb cloudfoundry ).each do |cb|
+%w( cloudfoundry cloudfoundry_service mongodb ).each do |cb|
   depends cb
 end
