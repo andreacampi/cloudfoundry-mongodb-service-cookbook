@@ -25,7 +25,7 @@ node_timeout: <%= node['cloudfoundry_mongodb_service']['gateway']['node_timeout'
 index: 0
 token: <%= node['cloudfoundry']['service_token'] %>
 mbus: <%= cf_mbus_url %>
-pid: <%= node['cloudfoundry_mongodb_service']['gateway']['pid_file'] %>
+pid: <%= @pid_file %>
 logging:
   level: <%= node['cloudfoundry_mongodb_service']['gateway']['log_level'] %>
-  file: <%= node['cloudfoundry_mongodb_service']['gateway']['log_file'] %>
+  file: <%=  @log_file %>

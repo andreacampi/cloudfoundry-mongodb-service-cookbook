@@ -1,9 +1,3 @@
-# Where to write the mongodb service node's pid.
-default['cloudfoundry_mongodb_service']['node']['pid_file'] = File.join(node['cloudfoundry']['pid_dir'], "mongodb_node.pid")
-
-# Where to write the mongodb service node's logs.
-default['cloudfoundry_mongodb_service']['node']['log_file'] = File.join(node['cloudfoundry']['log_dir'], "mongodb_node.log")
-
 # Where to write the mongodb service node's logs.
 default['cloudfoundry_mongodb_service']['node']['db_logs_dir'] = File.join(node['cloudfoundry']['log_dir'], "mongodb")
 

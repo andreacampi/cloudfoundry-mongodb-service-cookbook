@@ -6,7 +6,7 @@ mbus: <%= cf_mbus_url %>
 index: <%= node['cloudfoundry_mongodb_service']['node']['index'] %>
 base_dir: <%= node['cloudfoundry_mongodb_service']['node']['instances_dir'] %>
 mongod_log_dir: <%= node['cloudfoundry_mongodb_service']['node']['db_logs_dir'] %>
-pid: <%= node['cloudfoundry_mongodb_service']['node'].pid_file %>
+pid: <%= @pid_file %>
 node_id: mongodb_node_<%= node['cloudfoundry_mongodb_service']['node']['index'] %>
 op_time_limit: <%= node['cloudfoundry_mongodb_service']['node']['op_time_limit'] %>
 
@@ -44,4 +44,4 @@ port_range:
 migration_nfs: <%= node['cloudfoundry_mongodb_service']['node']['migration_nfs'] %>
 logging:
   level: <%= node['cloudfoundry_mongodb_service']['node']['log_level'] %>
-  file: <%= node['cloudfoundry_mongodb_service']['node']['log_file'] %>
+  file: <%= @log_file %>

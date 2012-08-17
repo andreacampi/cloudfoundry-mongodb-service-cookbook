@@ -1,1 +1,0 @@
-cloudfoundry_service_install "mongodb"
