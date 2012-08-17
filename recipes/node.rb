@@ -18,6 +18,10 @@
 # limitations under the License.
 #
 
+node.default['cloudfoundry_mongodb_service']['node']['base_dir'] = File.join(node['cloudfoundry']['services_dir'], "mongodb")
+node.default['cloudfoundry_mongodb_service']['node']['db_logs_dir'] = File.join(node['cloudfoundry']['log_dir'], "mongodb")
+node.default['cloudfoundry_mongodb_service']['node']['instances_dir'] = "#{node['cloudfoundry_mongodb_service']['node']['base_dir']}/instances"
+
 # include_recipe "mongodb::10gen_repo"
 
 %w[sqlite3 libsqlite3-ruby libsqlite3-dev].each do |p|
