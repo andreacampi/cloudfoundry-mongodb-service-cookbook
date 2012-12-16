@@ -19,7 +19,7 @@
 #
 
 node.default['cloudfoundry_mongodb_service']['node']['ruby_version'] = node['cloudfoundry']['ruby_1_9_2_version']
-node.default['cloudfoundry_mongodb_service']['node']['base_dir'] = File.join(node['cloudfoundry']['services_dir'], "mongodb")
+node.default['cloudfoundry_mongodb_service']['node']['base_dir'] = File.join(node['cloudfoundry_service']['base_dir'], "mongodb")
 node.default['cloudfoundry_mongodb_service']['node']['db_logs_dir'] = File.join(node['cloudfoundry']['log_dir'], "mongodb")
 node.default['cloudfoundry_mongodb_service']['node']['instances_dir'] = "#{node['cloudfoundry_mongodb_service']['node']['base_dir']}/instances"
 
@@ -37,14 +37,14 @@ rbenv_ruby ruby_ver
   package p
 end
 
-%w[base_dir db_logs_dir instances_dir].each do |d|
+cloudfoundry_service_component "mongodb_node" do
+  service_name  "mongodb"
+  action        [:create, :enable]
+end
+
+%w[db_logs_dir instances_dir].each do |d|
   directory node['cloudfoundry_mongodb_service']['node'][d] do
     owner node['cloudfoundry']['user']
     mode  "0755"
   end
-end
-
-cloudfoundry_service_component "mongodb_node" do
-  service_name  "mongodb"
-  action        [:create, :enable]
 end
