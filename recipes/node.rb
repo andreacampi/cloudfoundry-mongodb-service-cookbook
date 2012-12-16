@@ -18,9 +18,18 @@
 # limitations under the License.
 #
 
+node.default['cloudfoundry_mongodb_service']['node']['ruby_version'] = node['cloudfoundry']['ruby_1_9_2_version']
 node.default['cloudfoundry_mongodb_service']['node']['base_dir'] = File.join(node['cloudfoundry']['services_dir'], "mongodb")
 node.default['cloudfoundry_mongodb_service']['node']['db_logs_dir'] = File.join(node['cloudfoundry']['log_dir'], "mongodb")
 node.default['cloudfoundry_mongodb_service']['node']['instances_dir'] = "#{node['cloudfoundry_mongodb_service']['node']['base_dir']}/instances"
+
+ruby_ver = node['cloudfoundry_mongodb_service']['node']['ruby_version']
+ruby_path = ruby_bin_path(ruby_ver)
+
+include_recipe "rbenv::default"
+include_recipe "rbenv::ruby_build"
+
+rbenv_ruby ruby_ver
 
 # include_recipe "mongodb::10gen_repo"
 
