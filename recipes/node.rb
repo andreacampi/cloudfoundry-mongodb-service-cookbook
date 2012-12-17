@@ -32,10 +32,7 @@ include_recipe "rbenv::ruby_build"
 rbenv_ruby ruby_ver
 
 # include_recipe "mongodb::10gen_repo"
-
-%w[sqlite3 libsqlite3-ruby libsqlite3-dev].each do |p|
-  package p
-end
+include_recipe "cloudfoundry-mongodb-service::dependencies"
 
 cloudfoundry_service_component "mongodb_node" do
   service_name  "mongodb"

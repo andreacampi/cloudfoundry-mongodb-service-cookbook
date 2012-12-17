@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: cloudfoundry-mongodb-service
-# Recipe:: gateway
+# Recipe:: dependencies
 #
 # Copyright 2012, ZephirWorks
 # Copyright 2012, Trotter Cashion
@@ -18,21 +18,6 @@
 # limitations under the License.
 #
 
-#
-# Install the correct rbenv
-#
-node.default['cloudfoundry_mongodb_service']['gateway']['ruby_version'] = node['cloudfoundry']['ruby_1_9_2_version']
-ruby_ver = node['cloudfoundry_mongodb_service']['gateway']['ruby_version']
-ruby_path = ruby_bin_path(ruby_ver)
-
-include_recipe "rbenv::default"
-include_recipe "rbenv::ruby_build"
-
-rbenv_ruby ruby_ver
-
-include_recipe "cloudfoundry-mongodb-service::dependencies"
-
-cloudfoundry_service_component "mongodb_gateway" do
-  service_name  "mongodb"
-  action        [:create, :enable]
+%w[libcurl4-openssl-dev sqlite3 libsqlite3-ruby libsqlite3-dev].each do |p|
+  package p
 end
