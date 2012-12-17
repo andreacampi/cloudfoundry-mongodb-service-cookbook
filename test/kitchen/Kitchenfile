@@ -1,4 +1,5 @@
 cookbook "cloudfoundry-mongodb-service" do
   configuration "gateway"
+  configuration "node"
   runtimes []
 end
