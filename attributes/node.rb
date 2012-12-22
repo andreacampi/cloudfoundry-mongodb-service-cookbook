@@ -47,4 +47,4 @@ default['cloudfoundry_mongodb_service']['node']['versions'] = {
   }
 }
 
-default['cloudfoundry_mongodb_service']['node']['default_version'] = "1.8"
+default['cloudfoundry_mongodb_service']['node']['default_version'] = "2.2"
