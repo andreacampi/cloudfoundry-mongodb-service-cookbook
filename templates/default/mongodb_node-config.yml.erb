@@ -11,31 +11,27 @@ node_id: mongodb_node_<%= node['cloudfoundry_mongodb_service']['node']['index'] 
 op_time_limit: <%= node['cloudfoundry_mongodb_service']['node']['op_time_limit'] %>
 
 <%
-  keys = node['cloudfoundry_mongodb_service']['supported_versions'].keys
-  keys = keys.collect {|e| "\"#{e}\""}
+  versions = node['cloudfoundry_mongodb_service']['node']['versions']
+  supported_versions = versions.keys.sort.map { |e| "\"#{e}\"" }.join(", ")
 %>
-supported_versions: [<%= keys.join(", ") %>]
+supported_versions: [<%= supported_versions %>]
 default_version: "<%= node['cloudfoundry_mongodb_service']['node']['default_version'] %>"
 
 mongod_path:
 <%
-  node['cloudfoundry_mongodb_service']['supported_versions'].each_key do |version|
+  versions.each_key do |version|
 %>
-  "<%= version %>": "<%= File.join(node['cloudfoundry_mongodb_service']['node']['versions'][version]['mongod_base_path'], "bin", "mongod") %>"
+  "<%= version %>": "<%= File.join(versions[version]['mongod_base_path'], "bin", "mongod") %>"
 <% end %>
 
 mongorestore_path:
-<%
-  node['cloudfoundry_mongodb_service']['supported_versions'].each_key do |version|
-%>
-  "<%= version %>": "<%= File.join(node['cloudfoundry_mongodb_service']['node']['versions'][version]['mongod_base_path'], "bin", "mongorestore") %>"
+<% versions.each_key do |version| %>
+  "<%= version %>": "<%= File.join(versions[version]['mongod_base_path'], "bin", "mongorestore") %>"
 <% end %>
 
 mongod_options:
-<%
-  node['cloudfoundry_mongodb_service']['supported_versions'].each_key do |version|
-%>
-  "<%= version %>": "<%= node['cloudfoundry_mongodb_service']['node']['versions'][version]['mongod_options'] %>"
+<% versions.each_key do |version| %>
+  "<%= version %>": "<%= versions[version]['mongod_options'] %>"
 <% end %>
 
 port_range:

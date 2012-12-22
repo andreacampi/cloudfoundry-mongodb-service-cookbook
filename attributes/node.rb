@@ -35,16 +35,6 @@ default['cloudfoundry_mongodb_service']['node']['migration_nfs'] = "/mnt/migrati
 # TODO (trotter): Find out what this does.
 default['cloudfoundry_mongodb_service']['node']['op_time_limit'] = 6
 
-
-default['cloudfoundry_mongodb_service']['node']['versions'] = {
-  "1.8" => {
-    "mongod_base_path" => "/usr",
-    "mongod_options" => ""
-  },
-  "2.0" => {
-    "mongod_base_path" => "/usr", # FIXME
-    "mongod_options" => "--nojournal"
-  }
-}
+default['cloudfoundry_mongodb_service']['node']['versions'] = {}
 
 default['cloudfoundry_mongodb_service']['node']['default_version'] = "2.2"
