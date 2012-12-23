@@ -25,3 +25,10 @@ default['cloudfoundry_mongodb_service']['gateway']['node_timeout'] = 30
 
 # TODO (andreacampi): Find out what this does.
 default['cloudfoundry_mongodb_service']['gateway']['timeout'] = 15
+
+#
+default['cloudfoundry_mongodb_service']['gateway']['version_aliases'] = {
+  'previous' => '1.8',
+  'current' => '2.0',
+  'next' => '2.2'
+}

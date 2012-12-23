@@ -8,17 +8,11 @@ service:
   default_plan: 'free'
   tags: ['mongodb', 'mongodb-1.8', 'nosql', 'document']
   timeout: <%= node['cloudfoundry_mongodb_service']['gateway']['timeout'] %>
-<%
-keys = node['cloudfoundry_mongodb_service']['supported_versions'].keys
-keys = keys.collect {|e| "\"#{e}\""}
-%>
-  supported_versions: [<%= keys.join(", ") %>]
+  supported_versions: [<%= cfservicegw_supported_versions_string('mongodb') %>]
   version_aliases:
-<%
-  node['cloudfoundry_mongodb_service']['version_aliases'].each do |a, v|
-%>
+  <% node['cloudfoundry_mongodb_service']['gateway']['version_aliases'].each do |a, v| %>
     "<%= a %>": "<%= v %>"
-<% end %>
+  <% end %>
 
 host: localhost
 node_timeout: <%= node['cloudfoundry_mongodb_service']['gateway']['node_timeout'] %>

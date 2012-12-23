@@ -42,9 +42,9 @@ describe 'cloudfoundry-mongodb-service::gateway' do
     row['default_plan'].must_equal "free"
 
     versions = YAML.load(row['supported_versions'])
-    versions.must_equal ["1.8"]
+    versions.must_equal []
     aliases = YAML.load(row['version_aliases'])
-    aliases.must_equal  "current"=>"1.8"
+    aliases.must_equal({"previous"=>"1.8", "current"=>"2.0", "next"=>"2.2"})
   end
 
 protected
