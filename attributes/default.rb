@@ -20,8 +20,10 @@
 include_attribute "cloudfoundry"
 
 default['cloudfoundry_mongodb_service']['supported_versions'] = {
-        "1.8" => "1.8.5"
+        "1.8" => "1.8.5",
+        "2.2" => "2.2"
 }
 default['cloudfoundry_mongodb_service']['version_aliases'] = {
-        "current" => "1.8"
+        "current" => "1.8",
+        "next" => "2.2"
 }
