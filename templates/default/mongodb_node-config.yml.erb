@@ -12,6 +12,7 @@ op_time_limit: <%= node['cloudfoundry_mongodb_service']['node']['op_time_limit']
 
 <%
   versions = node['cloudfoundry_mongodb_service']['node']['versions']
+  raise "You need to install mongodb, see the README for cloudfoundry-mongodb-service" unless versions.any?
   supported_versions = versions.keys.sort.map { |e| "\"#{e}\"" }.join(", ")
 %>
 supported_versions: [<%= supported_versions %>]

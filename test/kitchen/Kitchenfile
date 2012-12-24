@@ -1,6 +1,5 @@
 cookbook "cloudfoundry-mongodb-service" do
   configuration "gateway"
-  configuration "node"
   configuration "install22"
   configuration "node_with_mongodb22"
   runtimes []
