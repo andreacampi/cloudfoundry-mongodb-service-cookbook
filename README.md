@@ -1,7 +1,8 @@
 Description
 ===========
 
-Install and configure the [CloudFoundry](http://www.cloudfoundry.org/) MongoDB service.
+Install a Cloud Foundry MongoDB gateway or node, optional components of a
+[Cloud Foundry](http://www.cloudfoundry.org) installation.
 
 Requirements
 ============
@@ -12,6 +13,7 @@ Cookbooks
 * cloudfoundry
 * cloudfoundry\_service
 * mongodb
+* rbenv
 
 Platform
 --------
@@ -20,13 +22,67 @@ Platform
 
 Tested on:
 
-* Ubuntu 11.10
+* Ubuntu 10.04
+* Ubuntu 12.04
 
 Attributes
 ==========
 
+gateway
+-------
+
+`node['cloudfoundry_mongodb_service']['gateway']['log_level']` - Log level for
+the service gateway daemon. Defaults to `info`.
+`node['cloudfoundry_mongodb_service']['gateway']['node_timeout']` - Time out
+fo talking to a service node. Defaults to `30`.
+`node['cloudfoundry_mongodb_service']['gateway']['timeout']` - Time out for
+completing (de)provisioning requests. Defaults to `15`.
+`node['cloudfoundry_mongodb_service']['gateway']['version_aliases']` -
+Human-readable aliases for MongoDB versions.
+
+node
+----
+
+`node['cloudfoundry_mongodb_service']['node']['log_level']` - Log level for
+the service node daemon. Defaults to `info`.
+`node['cloudfoundry_mongodb_service']['node']['index']` - Unique instance
+info; should be cofigured to be different between nodes. Defaults to `0`.
+`node['cloudfoundry_mongodb_service']['node']['capacity']` - Maximum number
+of service instances for this node. Defaults to `200`.
+`node['cloudfoundry_mongodb_service']['node']['port_range']['first']` -
+The lower end of a range of ports that can be used for services nodes.
+Defaults to `25001`.
+`node['cloudfoundry_mongodb_service']['node']['port_range']['last']` -
+The higher end of a range of ports that can be used for services nodes.
+Defaults to `45000`.
+`node['cloudfoundry_mongodb_service']['node']['migration_nfs']` - Path to
+a directory that will be used when dumping and reimporting a node. Defaults
+to `/mnt/migration`.
+`node['cloudfoundry_mongodb_service']['node']['op_time_limit']` - Maximum
+time to wait during provisioning. Defaults to `6`.
+`node['cloudfoundry_mongodb_service']['node']['versions']` - A Hash mapping
+versions of MongoDB to their runtime details. Defaults to `{}`.
+`node['cloudfoundry_mongodb_service']['node']['default_version']` - The
+default version for requests to this node. Defaults to `2.2`.
+
 Usage
 =====
+
+You need exactly one MongoDB service gateway, ideally deployed to the same
+node as the `cloud_controller`:
+
+    run_list: "recipe[cloudfoundry-mongodb-service::gateway]"
+
+You can run as many MongoDB service nodes as needed to support your expected
+work load:
+
+    run_list: "recipe[cloudfoundry-mongodb-service::node]"
+
+You also need to install the MongoDB package itself. You may want to provide
+your own binaries, or you can use the simplified recipe in this cookbook:
+
+    run_list: "recipe[cloudfoundry-mongodb-service::install22]",
+              "recipe[cloudfoundry-mongodb-service::node]"
 
 License and Author
 ==================
