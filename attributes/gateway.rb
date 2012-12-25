@@ -24,7 +24,7 @@ default['cloudfoundry_mongodb_service']['gateway']['log_level'] = "info"
 # Time out for talking to a service node.
 default['cloudfoundry_mongodb_service']['gateway']['node_timeout'] = 30
 
-# Time out for completing (de)provisioning requests
+# Time out for completing (de)provisioning requests.
 default['cloudfoundry_mongodb_service']['gateway']['timeout'] = 15
 
 # Human-readable aliases for MongoDB versions.
