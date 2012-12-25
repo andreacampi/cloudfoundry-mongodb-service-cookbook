@@ -34,7 +34,7 @@ gateway
 `node['cloudfoundry_mongodb_service']['gateway']['log_level']` - Log level for
 the service gateway daemon. Defaults to `info`.
 `node['cloudfoundry_mongodb_service']['gateway']['node_timeout']` - Time out
-fo talking to a service node. Defaults to `30`.
+for talking to a service node. Defaults to `30`.
 `node['cloudfoundry_mongodb_service']['gateway']['timeout']` - Time out for
 completing (de)provisioning requests. Defaults to `15`.
 `node['cloudfoundry_mongodb_service']['gateway']['version_aliases']` -
@@ -46,7 +46,7 @@ node
 `node['cloudfoundry_mongodb_service']['node']['log_level']` - Log level for
 the service node daemon. Defaults to `info`.
 `node['cloudfoundry_mongodb_service']['node']['index']` - Unique instance
-info; should be cofigured to be different between nodes. Defaults to `0`.
+info; should be configured to be different between nodes. Defaults to `0`.
 `node['cloudfoundry_mongodb_service']['node']['capacity']` - Maximum number
 of service instances for this node. Defaults to `200`.
 `node['cloudfoundry_mongodb_service']['node']['port_range']['first']` -
