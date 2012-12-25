@@ -3,6 +3,7 @@
 # Attributes:: gateway
 #
 # Copyright 2012, ZephirWorks
+# Copyright 2012, Trotter Cashion
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,16 +18,16 @@
 # limitations under the License.
 #
 
-# Log level for the msyql service gateway.
+# Log level for the service gateway daemon.
 default['cloudfoundry_mongodb_service']['gateway']['log_level'] = "info"
 
-# TODO (trotter): Find out what this does.
+# Time out for talking to a service node.
 default['cloudfoundry_mongodb_service']['gateway']['node_timeout'] = 30
 
-# TODO (andreacampi): Find out what this does.
+# Time out for completing (de)provisioning requests
 default['cloudfoundry_mongodb_service']['gateway']['timeout'] = 15
 
-#
+# Human-readable aliases for MongoDB versions.
 default['cloudfoundry_mongodb_service']['gateway']['version_aliases'] = {
   'previous' => '1.8',
   'current' => '2.0',
