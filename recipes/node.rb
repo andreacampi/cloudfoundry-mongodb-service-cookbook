@@ -42,6 +42,7 @@ end
 %w[db_logs_dir instances_dir].each do |d|
   directory node['cloudfoundry_mongodb_service']['node'][d] do
     owner node['cloudfoundry']['user']
+    group node['cloudfoundry']['group']
     mode  "0755"
   end
 end
