@@ -9,6 +9,7 @@ version          "1.0.1"
   supports os
 end
 
-%w( cloudfoundry cloudfoundry_service mongodb rbenv ).each do |cb|
+%w( cloudfoundry mongodb ).each do |cb|
   depends cb
 end
+depends "cloudfoundry_service", "~> 1.1.0"

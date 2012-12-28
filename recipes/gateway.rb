@@ -18,19 +18,12 @@
 # limitations under the License.
 #
 
-#
-# Install the correct rbenv
-#
-node.default['cloudfoundry_mongodb_service']['gateway']['ruby_version'] = node['cloudfoundry']['ruby_1_9_2_version']
-ruby_ver = node['cloudfoundry_mongodb_service']['gateway']['ruby_version']
-ruby_path = ruby_bin_path(ruby_ver)
+service_rbenv do
+  namespace 'cloudfoundry_mongodb_service'
+  component 'gateway'
+end
 
-include_recipe "rbenv::default"
-include_recipe "rbenv::ruby_build"
-
-rbenv_ruby ruby_ver
-
-include_recipe "cloudfoundry-mongodb-service::dependencies"
+include_recipe "cloudfoundry_service::dependencies"
 
 cloudfoundry_service_component "mongodb_gateway" do
   service_name  "mongodb"

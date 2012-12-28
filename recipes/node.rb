@@ -23,16 +23,12 @@ node.default['cloudfoundry_mongodb_service']['node']['base_dir'] = File.join(nod
 node.default['cloudfoundry_mongodb_service']['node']['db_logs_dir'] = File.join(node['cloudfoundry']['log_dir'], "mongodb")
 node.default['cloudfoundry_mongodb_service']['node']['instances_dir'] = "#{node['cloudfoundry_mongodb_service']['node']['base_dir']}/instances"
 
-ruby_ver = node['cloudfoundry_mongodb_service']['node']['ruby_version']
-ruby_path = ruby_bin_path(ruby_ver)
+service_rbenv do
+  namespace 'cloudfoundry_mongodb_service'
+  component 'node'
+end
 
-include_recipe "rbenv::default"
-include_recipe "rbenv::ruby_build"
-
-rbenv_ruby ruby_ver
-
-# include_recipe "mongodb::10gen_repo"
-include_recipe "cloudfoundry-mongodb-service::dependencies"
+include_recipe "cloudfoundry_service::dependencies"
 
 cloudfoundry_service_component "mongodb_node" do
   service_name  "mongodb"
