@@ -31,49 +31,49 @@ Attributes
 gateway
 -------
 
-`node['cloudfoundry_mongodb_service']['gateway']['log_level']` - Log level for
+* `node['cloudfoundry_mongodb_service']['gateway']['log_level']` - Log level for
 the service gateway daemon. Defaults to `info`.
-`node['cloudfoundry_mongodb_service']['gateway']['node_timeout']` - Time out
+* `node['cloudfoundry_mongodb_service']['gateway']['node_timeout']` - Time out
 for talking to a service node. Defaults to `30`.
-`node['cloudfoundry_mongodb_service']['gateway']['timeout']` - Time out for
+* `node['cloudfoundry_mongodb_service']['gateway']['timeout']` - Time out for
 completing (de)provisioning requests. Defaults to `15`.
-`node['cloudfoundry_mongodb_service']['gateway']['version_aliases']` -
+* `node['cloudfoundry_mongodb_service']['gateway']['version_aliases']` -
 Human-readable aliases for MongoDB versions.
 
 node
 ----
 
-`node['cloudfoundry_mongodb_service']['node']['log_level']` - Log level for
+* `node['cloudfoundry_mongodb_service']['node']['log_level']` - Log level for
 the service node daemon. Defaults to `info`.
-`node['cloudfoundry_mongodb_service']['node']['index']` - Unique instance
+* `node['cloudfoundry_mongodb_service']['node']['index']` - Unique instance
 info; should be configured to be different between nodes. Defaults to `0`.
-`node['cloudfoundry_mongodb_service']['node']['capacity']` - Maximum number
+* `node['cloudfoundry_mongodb_service']['node']['capacity']` - Maximum number
 of service instances for this node. Defaults to `200`.
-`node['cloudfoundry_mongodb_service']['node']['port_range']['first']` -
+* `node['cloudfoundry_mongodb_service']['node']['port_range']['first']` -
 The lower end of a range of ports that can be used for services nodes.
 Defaults to `25001`.
-`node['cloudfoundry_mongodb_service']['node']['port_range']['last']` -
+* `node['cloudfoundry_mongodb_service']['node']['port_range']['last']` -
 The higher end of a range of ports that can be used for services nodes.
 Defaults to `45000`.
-`node['cloudfoundry_mongodb_service']['node']['migration_nfs']` - Path to
+* `node['cloudfoundry_mongodb_service']['node']['migration_nfs']` - Path to
 a directory that will be used when dumping and reimporting a node. Defaults
 to `/mnt/migration`.
-`node['cloudfoundry_mongodb_service']['node']['op_time_limit']` - Maximum
+* `node['cloudfoundry_mongodb_service']['node']['op_time_limit']` - Maximum
 time to wait during provisioning. Defaults to `6`.
-`node['cloudfoundry_mongodb_service']['node']['versions']` - A Hash mapping
+* `node['cloudfoundry_mongodb_service']['node']['versions']` - A Hash mapping
 versions of MongoDB to their runtime details. Defaults to `{}`.
-`node['cloudfoundry_mongodb_service']['node']['default_version']` - The
+* `node['cloudfoundry_mongodb_service']['node']['default_version']` - The
 default version for requests to this node. Defaults to `2.2`.
-`node['cloudfoundry_mongodb_service']['node']['ip_route']` - The IP address
+* `node['cloudfoundry_mongodb_service']['node']['ip_route']` - The IP address
 of a host that will be used to determine the correct IP address to use to
 talk to other components; or `nil` to use the default. Defaults to `nil`.
-`node['cloudfoundry_mongodb_service']['node']['z_interval']` - Frequency
+* `node['cloudfoundry_mongodb_service']['node']['z_interval']` - Frequency
 in seconds between updating and announcing "varz" (i.e. service status
 information). Defaults to `30`.
-`node['cloudfoundry_mongodb_service']['node']['max_nats_payload']` - Maximum
+* `node['cloudfoundry_mongodb_service']['node']['max_nats_payload']` - Maximum
 size in bytes of a single announcement; bigger ones will be split into
 multiple messages. Defaults to `1048576`.
-`node['cloudfoundry_mongodb_service']['node']['fqdn_hosts']` - If true,
+* `node['cloudfoundry_mongodb_service']['node']['fqdn_hosts']` - If true,
 service bindings credentials will be issued using the hostname. If false,
 the IP address will be used instead.. Defaults to `false`.
 
