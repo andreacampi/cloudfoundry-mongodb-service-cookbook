@@ -38,5 +38,11 @@ mongorestore_path:
 <% versions.each_key do |version| %>
   "<%= version %>": "<%= File.join(versions[version]['mongod_base_path'], "bin", "mongorestore") %>"
 <% end %>
+<% if node['cloudfoundry_mongodb_service']['node']['ip_route'] %>
+ip_route: <%= node['cloudfoundry_mongodb_service']['node']['ip_route'] %>
+<% end %>
+z_interval: <%= node['cloudfoundry_mongodb_service']['node']['z_interval'] %>
 mongod_log_dir: <%= node['cloudfoundry_mongodb_service']['node']['db_logs_dir'] %>
+max_nats_payload: <%= node['cloudfoundry_mongodb_service']['node']['max_nats_payload'] %>
+fqdn_hosts: <%= node['cloudfoundry_mongodb_service']['node']['fqdn_hosts'] %>
 op_time_limit: <%= node['cloudfoundry_mongodb_service']['node']['op_time_limit'] %>

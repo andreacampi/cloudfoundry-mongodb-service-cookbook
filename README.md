@@ -64,6 +64,18 @@ time to wait during provisioning. Defaults to `6`.
 versions of MongoDB to their runtime details. Defaults to `{}`.
 `node['cloudfoundry_mongodb_service']['node']['default_version']` - The
 default version for requests to this node. Defaults to `2.2`.
+`node['cloudfoundry_mongodb_service']['node']['ip_route']` - The IP address
+of a host that will be used to determine the correct IP address to use to
+talk to other components; or `nil` to use the default. Defaults to `nil`.
+`node['cloudfoundry_mongodb_service']['node']['z_interval']` - Frequency
+in seconds between updating and announcing "varz" (i.e. service status
+information). Defaults to `30`.
+`node['cloudfoundry_mongodb_service']['node']['max_nats_payload']` - Maximum
+size in bytes of a single announcement; bigger ones will be split into
+multiple messages. Defaults to `1048576`.
+`node['cloudfoundry_mongodb_service']['node']['fqdn_hosts']` - If true,
+service bindings credentials will be issued using the hostname. If false,
+the IP address will be used instead.. Defaults to `false`.
 
 Usage
 =====
