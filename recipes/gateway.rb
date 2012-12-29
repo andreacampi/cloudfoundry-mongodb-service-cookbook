@@ -27,5 +27,6 @@ include_recipe "cloudfoundry_service::dependencies"
 
 cloudfoundry_service_component "mongodb_gateway" do
   service_name  "mongodb"
+  ruby_version  node['cloudfoundry_mongodb_service']['gateway']['ruby_version']
   action        [:create, :enable]
 end
