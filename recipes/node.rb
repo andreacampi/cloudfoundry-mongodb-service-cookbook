@@ -18,7 +18,6 @@
 # limitations under the License.
 #
 
-node.default['cloudfoundry_mongodb_service']['node']['ruby_version'] = node['cloudfoundry']['ruby_1_9_2_version']
 node.default['cloudfoundry_mongodb_service']['node']['base_dir'] = File.join(node['cloudfoundry_service']['base_dir'], "mongodb")
 node.default['cloudfoundry_mongodb_service']['node']['db_logs_dir'] = File.join(node['cloudfoundry']['log_dir'], "mongodb")
 node.default['cloudfoundry_mongodb_service']['node']['instances_dir'] = "#{node['cloudfoundry_mongodb_service']['node']['base_dir']}/instances"
