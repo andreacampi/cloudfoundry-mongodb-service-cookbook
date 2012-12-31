@@ -1,3 +1,4 @@
+name             "cloudfoundry-mongodb-service"
 maintainer       "Trotter Cashion"
 maintainer_email "cashion@gmail.com"
 license          "Apache 2.0"
