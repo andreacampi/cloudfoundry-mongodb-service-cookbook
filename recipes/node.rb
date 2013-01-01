@@ -35,7 +35,7 @@ cloudfoundry_service_component "mongodb_node" do
   action        [:create, :enable]
 end
 
-%w[db_logs_dir instances_dir].each do |d|
+%w[base_dir db_logs_dir instances_dir].each do |d|
   directory node['cloudfoundry_mongodb_service']['node'][d] do
     owner node['cloudfoundry']['user']
     group node['cloudfoundry']['group']
