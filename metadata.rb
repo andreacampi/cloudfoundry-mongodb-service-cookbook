@@ -13,4 +13,4 @@ end
 %w( cloudfoundry mongodb ).each do |cb|
   depends cb
 end
-depends "cloudfoundry_service", "~> 1.1.4"
+depends "cloudfoundry_service", "~> 1.2.0"
