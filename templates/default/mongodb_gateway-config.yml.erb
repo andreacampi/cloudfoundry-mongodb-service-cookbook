@@ -10,7 +10,7 @@ service:
   description: 'MongoDB NoSQL store'
   plans: ['free']
   default_plan: 'free'
-  tags: ['mongodb', 'mongodb-1.8', 'nosql', 'document']
+  tags: ['nosql', 'document']
   timeout: <%= node['cloudfoundry_mongodb_service']['gateway']['timeout'] %>
   supported_versions: [<%= cfservicegw_supported_versions_string('mongodb') %>]
   version_aliases:
