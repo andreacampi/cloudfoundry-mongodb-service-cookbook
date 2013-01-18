@@ -1,4 +1,8 @@
 ---
+<%
+  gateway_cfg = node['cloudfoundry_mongodb_service']['gateway']
+  redis_node = cf_vcap_redis_node || node
+%>
 mbus: <%= cf_mbus_url %>
 index: 0
 
@@ -25,3 +29,21 @@ logging:
 
 pid: <%= @pid_file %>
 node_timeout: <%= node['cloudfoundry_mongodb_service']['gateway']['node_timeout'] %>
+
+<% if gateway_cfg['lifecycle']['enable'] %>
+resque:
+  host: <%= redis_node.attribute?('cloud') ? redis_node['cloud']['local_ipv4'] : redis_node['ipaddress'] %>
+  port: <%= redis_node['cloudfoundry_cloud_controller']['redis']['port'] %>
+  <% if redis_node['cloudfoundry_cloud_controller']['redis']['password'] -%>
+  password: <%= redis_node['cloudfoundry_cloud_controller']['redis']['password'] %>
+  <%- end %>
+
+plan_management:
+  plans:
+    free:
+      lifecycle:
+        serialization: <%= gateway_cfg['serialization']['enable'] ? 'enable' : 'disable' %>
+        snapshot:
+          quota: <%= gateway_cfg['snapshot']['quota'] %>
+        job: enable
+<% end %>

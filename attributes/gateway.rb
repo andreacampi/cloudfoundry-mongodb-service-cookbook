@@ -33,3 +33,12 @@ default['cloudfoundry_mongodb_service']['gateway']['version_aliases'] = {
   'current' => '2.0',
   'next' => '2.2'
 }
+
+# Enable service lifecycle features.
+default['cloudfoundry_mongodb_service']['gateway']['lifecycle']['enable'] = true
+
+# Enable snapshots serialization.
+default['cloudfoundry_mongodb_service']['gateway']['serialization']['enable'] = true
+
+# Maximum number of snapshots that can be created.
+default['cloudfoundry_mongodb_service']['gateway']['snapshot']['quota'] = 5
