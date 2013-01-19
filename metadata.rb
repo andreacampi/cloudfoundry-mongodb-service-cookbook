@@ -10,5 +10,6 @@ version          "1.0.4"
   supports os
 end
 
+depends "cloudfoundry", "~> 1.3.1"
 depends "cloudfoundry_service", "~> 1.2.2"
 depends "mongodb"

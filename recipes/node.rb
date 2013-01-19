@@ -42,3 +42,10 @@ end
     mode  "0755"
   end
 end
+
+cloudfoundry_service_component "mongodb_worker" do
+  base_path ::File.join(node['cloudfoundry_service']['install_path'], "mongodb_node")
+  service_name  "mongodb"
+  ruby_version  node['cloudfoundry_mongodb_service']['node']['ruby_version']
+  action        [:create, :enable]
+end
