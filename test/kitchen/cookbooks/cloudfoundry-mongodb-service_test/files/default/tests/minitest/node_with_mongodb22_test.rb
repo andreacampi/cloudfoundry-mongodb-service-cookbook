@@ -5,21 +5,41 @@ require 'sqlite3'
 describe 'cloudfoundry-mongodb-service::node' do
   include Helpers::CFServiceMongoDBTest
 
-  before do
-    # Give the service some time to start up.
-    sleep 10
+  it 'checks out sources with the correct permissions' do
+    dirs = [
+      '/srv/cloudfoundry/services/mongodb_node',
+      '/srv/cloudfoundry/services/mongodb_node/mongodb',
+      '/srv/cloudfoundry/services/mongodb_node/mongodb/bundle',
+      '/srv/cloudfoundry/services/mongodb_node/mongodb/.bundle'
+    ]
+    dirs.each do |d|
+      directory(d).must_exist.with(:owner, 'cloudfoundry') # .with(:group, 'cloudfoundry')
+    end
+  end
+
+  it 'creates a config file with the correct permissions' do
+    files = [
+      '/etc/cloudfoundry/mongodb_node.yml'
+    ]
+    files.each do |f|
+      file(f).must_exist.with(:owner, 'cloudfoundry') # .with(:group, 'cloudfoundry')
+    end
   end
 
   it 'creates a instances dir' do
-    directory('/var/vcap/services/mongodb/instances').must_exist.with(:owner, 'cloudfoundry')
+    directory('/var/vcap/services/mongodb/instances').must_exist.
+      with(:owner, 'cloudfoundry').
+      with(:group, 'cloudfoundry')
   end
 
   it 'creates a database' do
-    file('/var/vcap/services/mongodb/mongodb_node.db').must_exist.with(:owner, 'cloudfoundry')
+    sleep 20 # Give the service some time to start up.
+    file('/var/vcap/services/mongodb/mongodb_node.db').must_exist.
+      with(:owner, 'cloudfoundry').
+      with(:group, 'cloudfoundry')
   end
 
   it 'creates a valid config file' do
-    file("/etc/cloudfoundry/mongodb_node.yml").must_exist.with(:owner, 'cloudfoundry')
     YAML.load_file('/etc/cloudfoundry/mongodb_node.yml')
   end
 
@@ -59,6 +79,8 @@ describe 'cloudfoundry-mongodb-service::node' do
     }.each do |k,v|
       config[k].must_equal v
     end
+
+    config.has_key?('ip_route').must_equal false
   end
 
   it 'has no provisioned services' do
@@ -69,6 +91,10 @@ describe 'cloudfoundry-mongodb-service::node' do
 
 protected
   def sqlite(path)
-    @sqlite ||= SQLite3::Database.new(path)
+    @sqlite ||= begin
+      sleep 20 # Give the service some time to start up.
+      file(path).must_exist # do not create the DB if it doesn't exist
+      SQLite3::Database.new(path)
+    end
   end
 end
