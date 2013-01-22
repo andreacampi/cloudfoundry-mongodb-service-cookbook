@@ -18,19 +18,27 @@
 # limitations under the License.
 #
 
+# Default attributes
 node.default['cloudfoundry_mongodb_service']['node']['base_dir'] = File.join(node['cloudfoundry_service']['base_dir'], "mongodb")
 node.default['cloudfoundry_mongodb_service']['node']['db_logs_dir'] = File.join(node['cloudfoundry']['log_dir'], "mongodb")
 node.default['cloudfoundry_mongodb_service']['node']['instances_dir'] = "#{node['cloudfoundry_mongodb_service']['node']['base_dir']}/instances"
 
+# Pre-computed a few variables
 base_dir = ::File.join(node['cloudfoundry_service']['install_path'], "mongodb_node")
+
+# Set up our ruby
 service_rbenv do
   namespace 'cloudfoundry_mongodb_service'
   component 'node'
 end
 ruby_ver = node['cloudfoundry_mongodb_service']['node']['ruby_version']
 
+# Set up common service dependencies
 include_recipe "cloudfoundry_service::dependencies"
 
+#
+# Service node
+#
 cloudfoundry_service_component "mongodb_node" do
   base_path     base_dir
   service_name  "mongodb"
@@ -46,6 +54,9 @@ end
   end
 end
 
+#
+# Service worker
+#
 cloudfoundry_service_component "mongodb_worker" do
   base_path     base_dir
   service_name  "mongodb"
