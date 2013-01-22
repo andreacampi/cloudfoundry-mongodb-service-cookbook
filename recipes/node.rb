@@ -25,6 +25,8 @@ node.default['cloudfoundry_mongodb_service']['node']['instances_dir'] = "#{node[
 
 # Pre-computed a few variables
 base_dir = ::File.join(node['cloudfoundry_service']['install_path'], "mongodb_node")
+bin_dir = ::File.join(base_dir, "mongodb", "bin")
+config_file = ::File.join(node['cloudfoundry']['config_dir'], "mongodb_backup.yml")
 
 # Set up our ruby
 service_rbenv do
@@ -32,6 +34,7 @@ service_rbenv do
   component 'node'
 end
 ruby_ver = node['cloudfoundry_mongodb_service']['node']['ruby_version']
+ruby_path = ruby_bin_path(ruby_ver)
 
 # Set up common service dependencies
 include_recipe "cloudfoundry_service::dependencies"
@@ -62,4 +65,26 @@ cloudfoundry_service_component "mongodb_worker" do
   service_name  "mongodb"
   ruby_version  ruby_ver
   action        [:create, :enable]
+end
+
+#
+# Service backup
+#
+template config_file do
+  source "mongodb_backup-config.yml.erb"
+  owner   node['cloudfoundry']['user']
+  group   node['cloudfoundry']['group']
+  mode    0644
+  variables(
+    :pid_file       => "#{node['cloudfoundry']['pid_dir']}/mongodb_backup.pid",
+    :log_file       => "#{node['cloudfoundry']['log_dir']}/mongodb_backup.log"
+  )
+end
+
+cron "mongodb_backup" do
+  hour "03"
+  minute "2"
+  command "#{bin_dir}/mongodb_backup -c #{config_file}"
+  path "#{ruby_path}:/usr/local/bin:/usr/bin:/bin"
+  user node['cloudfoundry']['user']
 end
