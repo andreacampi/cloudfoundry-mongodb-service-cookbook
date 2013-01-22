@@ -22,16 +22,19 @@ node.default['cloudfoundry_mongodb_service']['node']['base_dir'] = File.join(nod
 node.default['cloudfoundry_mongodb_service']['node']['db_logs_dir'] = File.join(node['cloudfoundry']['log_dir'], "mongodb")
 node.default['cloudfoundry_mongodb_service']['node']['instances_dir'] = "#{node['cloudfoundry_mongodb_service']['node']['base_dir']}/instances"
 
+base_dir = ::File.join(node['cloudfoundry_service']['install_path'], "mongodb_node")
 service_rbenv do
   namespace 'cloudfoundry_mongodb_service'
   component 'node'
 end
+ruby_ver = node['cloudfoundry_mongodb_service']['node']['ruby_version']
 
 include_recipe "cloudfoundry_service::dependencies"
 
 cloudfoundry_service_component "mongodb_node" do
+  base_path     base_dir
   service_name  "mongodb"
-  ruby_version  node['cloudfoundry_mongodb_service']['node']['ruby_version']
+  ruby_version  ruby_ver
   action        [:create, :enable]
 end
 
@@ -44,8 +47,8 @@ end
 end
 
 cloudfoundry_service_component "mongodb_worker" do
-  base_path ::File.join(node['cloudfoundry_service']['install_path'], "mongodb_node")
+  base_path     base_dir
   service_name  "mongodb"
-  ruby_version  node['cloudfoundry_mongodb_service']['node']['ruby_version']
+  ruby_version  ruby_ver
   action        [:create, :enable]
 end
